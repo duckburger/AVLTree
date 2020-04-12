@@ -8,6 +8,8 @@ namespace AVL_Tree
         public AvlTreeNode<T> LeftChild { get; set; }
         public AvlTreeNode<T> RightChild { get; set; }
         public AvlTreeNode<T> Parent { get; set; }
+        public bool IsLeaf => LeftChild == null && RightChild == null;
+        public bool OnlyOneChild => LeftChild != null && RightChild == null || LeftChild == null && RightChild != null;
 
         public AvlTreeNode(T data)
         {

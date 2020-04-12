@@ -17,18 +17,89 @@ namespace AVL_Tree
             var insertedNode = _root.InsertChild(item);
             if (insertedNode != null)
             {
-
+                CheckAndFixBalanceForTree(insertedNode);
             }
         }
 
-        private void CheckTreeBalance(AvlTreeNode<T> node)
+        public void Remove(T item)
         {
-            
+            var node = Find(item);
+            if (node != null)
+            {
+                // Node exists, delete it
+                if (node.IsLeaf)
+                {
+                    if (node.Parent.LeftChild == node)
+                    {
+                        node.Parent.LeftChild = null;
+                    }
+                    else if (node.Parent.RightChild == node)
+                    {
+                        node.Parent.RightChild = null;
+                    }
+                    return;
+                }
+
+                if (node.OnlyOneChild)
+                {
+                    if (node.LeftChild != null)
+                    {
+                        if (node.Parent.LeftChild == node)
+                        {
+                            node.Parent.LeftChild = node.LeftChild;
+                        }
+                        else if (node.Parent.RightChild == node)
+                        {
+                            node.Parent.RightChild = node.LeftChild;
+                        }
+                        return;
+                    }
+
+                    if (node.RightChild != null)
+                    {
+                        if (node.Parent.LeftChild == node)
+                        {
+                            node.Parent.LeftChild = node.RightChild;
+                        }
+                        else if (node.Parent.RightChild == node)
+                        {
+                            node.Parent.RightChild = node.RightChild;
+                        }
+                    }
+                }
+                else
+                {
+                    var inOrderPredecessor = FindInOrderPredecessor(node);
+                    SwapNodes(inOrderPredecessor, node);
+                    Remove(node.Data);
+                }
+            }
         }
 
-        public void Remove()
+        public AvlTreeNode<T> FindInOrderPredecessor(AvlTreeNode<T> node)
         {
+            var nextNodeToCheck = node.LeftChild;
+            while (true)
+            {
+                if (nextNodeToCheck.RightChild != null)
+                {
+                    nextNodeToCheck = nextNodeToCheck.RightChild;
+                }
+                else
+                {
+                    return nextNodeToCheck;
+                }
+            }
+        }
 
+        private void SwapNodes(AvlTreeNode<T> node1, AvlTreeNode<T> node2)
+        {
+            var node1TempLeftChild = node1.LeftChild;
+            var node1TempRightChild = node1.RightChild;
+            var node2TempLeftChild = node2.LeftChild;
+            var node2TempRigtChild = node2.RightChild;
+            var node1TempParent = node1.Parent;
+            var node2TempParent = node2.Parent;
         }
 
         public AvlTreeNode<T> Find(T item)
@@ -36,7 +107,7 @@ namespace AVL_Tree
             return FindInNode(_root.RightChild, item);
         }
 
-        public void CheckAndFixBalance(AvlTreeNode<T> node)
+        public void CheckAndFixBalanceForTree(AvlTreeNode<T> node, bool recurse = false)
         {
             var leftNodeHeight = node.LeftChild?.GetHeight() ?? 0;
             var rightNodeHeight = node.RightChild?.GetHeight() ?? 0;
@@ -74,6 +145,22 @@ namespace AVL_Tree
                     // Doing a right left rotation
                     node = RotateRightLeft(node);
                 }
+            }
+            else
+            {
+                if (node.Parent != null)
+                {
+                    node = node.Parent;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            if (recurse)
+            {
+                CheckAndFixBalanceForTree(node);
             }
         }
 
