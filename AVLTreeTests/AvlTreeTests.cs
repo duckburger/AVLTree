@@ -1,4 +1,5 @@
-﻿using AVL_Tree;
+﻿using System.Diagnostics;
+using AVL_Tree;
 using NUnit.Framework;
 
 namespace AvlTreeTests

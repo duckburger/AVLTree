@@ -17,7 +17,7 @@ namespace AVL_Tree
             var insertedNode = Root.InsertChild(item);
             if (insertedNode != null)
             {
-                CheckAndFixBalanceForTree(insertedNode, true);
+                CheckAndFixBalanceForTree(insertedNode);
             }
         }
 
@@ -107,61 +107,60 @@ namespace AVL_Tree
             return FindInNode(Root, item);
         }
 
-        public void CheckAndFixBalanceForTree(AvlTreeNode<T> node, bool recurse = false)
+        public void CheckAndFixBalanceForTree(AvlTreeNode<T> node)
         {
-            var leftNodeHeight = node.LeftChild?.GetHeight() ?? 0;
-            var rightNodeHeight = node.RightChild?.GetHeight() ?? 0;
-            var leftRightDifference = leftNodeHeight - rightNodeHeight;
-            if (leftRightDifference > 1)
+            while (node != null)
             {
-                // Node's subtree is left heavy
-                // Check if we need to do a right or left right rotation
-                var leftGrandChildHeight = node.LeftChild?.LeftChild?.GetHeight() ?? 0;
-                var rightGrandChildHeight = node.LeftChild?.RightChild?.GetHeight() ?? 0;
-                if (leftGrandChildHeight > rightGrandChildHeight)
+                var leftNodeHeight = node.LeftChild?.GetHeight() ?? 0;
+                var rightNodeHeight = node.RightChild?.GetHeight() ?? 0;
+                var leftRightDifference = leftNodeHeight - rightNodeHeight;
+                if (leftRightDifference > 1)
                 {
-                    // Doing a right rotation only
-                    node = RotateRight(node);
+                    // Node's subtree is left heavy
+                    // Check if we need to do a right or left right rotation
+                    var leftGrandChildHeight = node.LeftChild?.LeftChild?.GetHeight() ?? 0;
+                    var rightGrandChildHeight = node.LeftChild?.RightChild?.GetHeight() ?? 0;
+                    if (leftGrandChildHeight > rightGrandChildHeight)
+                    {
+                        // Doing a right rotation only
+                        node = RotateRight(node);
+                    }
+                    else
+                    {
+                        // Doing a left right rotation
+                        node = RotateLeftRight(node);
+                    }
+                }
+                else if (leftRightDifference < -1)
+                {
+                    // Node's subtree is right heavy
+                    // Check if we need to do a right or left right rotation
+                    var rightGrandchildHeight = node.RightChild?.RightChild?.GetHeight() ?? 0;
+                    var leftGrandChildHeight = node.RightChild?.LeftChild?.GetHeight() ?? 0;
+                    if (leftGrandChildHeight < rightGrandchildHeight)
+                    {
+                        // Doing a left rotation only
+                        node = RotateLeft(node);
+                    }
+                    else
+                    {
+                        // Doing a right left rotation
+                        node = RotateRightLeft(node);
+                    }
                 }
                 else
                 {
-                    // Doing a left right rotation
-                    node = RotateLeftRight(node);
-                }
-            }
-            else if (leftRightDifference < -1)
-            {
-                // Node's subtree is right heavy
-                // Check if we need to do a right or left right rotation
-                var rightGrandchildHeight = node.RightChild?.RightChild?.GetHeight() ?? 0;
-                var leftGrandChildHeight = node.RightChild?.LeftChild?.GetHeight() ?? 0;
-                if (leftGrandChildHeight < rightGrandchildHeight)
-                {
-                    // Doing a left rotation only
-                    node = RotateLeft(node);
-                }
-                else
-                {
-                    // Doing a right left rotation
-                    node = RotateRightLeft(node);
-                }
-            }
-            else
-            {
-                if (node.Parent != null)
-                {
-                    node = node.Parent;
-                }
-                else
-                {
-                    return;
+                    if (node.Parent != null)
+                    {
+                        node = node.Parent;
+                    }
+                    else
+                    {
+                        node = null;
+                    }
                 }
             }
 
-            if (recurse)
-            {
-                CheckAndFixBalanceForTree(node, true);
-            }
         }
 
         private AvlTreeNode<T> RotateRight(AvlTreeNode<T> node)
