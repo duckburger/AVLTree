@@ -104,7 +104,7 @@ namespace AVL_Tree
 
         public AvlTreeNode<T> Find(T item)
         {
-            return FindInNode(Root.RightChild, item);
+            return FindInNode(Root, item);
         }
 
         public void CheckAndFixBalanceForTree(AvlTreeNode<T> node, bool recurse = false)
@@ -168,11 +168,22 @@ namespace AVL_Tree
         {
             var temp = node.LeftChild;
             node.LeftChild = temp.RightChild;
+            if (node.LeftChild != null)
+            {
+                node.LeftChild.Parent = node;
+            }
             temp.RightChild = node;
             if (node.Parent != null)
             {
                 temp.Parent = node.Parent;
-                temp.Parent.RightChild = temp;
+                if (temp.Parent.Data.CompareTo(temp.Data) == 1)
+                {
+                    temp.Parent.LeftChild = temp;
+                }
+                else
+                {
+                    temp.Parent.RightChild = temp;
+                }
             }
             else
             {
@@ -187,11 +198,22 @@ namespace AVL_Tree
         {
             var temp = node.RightChild;
             node.RightChild = temp.LeftChild;
+            if (node.RightChild != null)
+            {
+                node.RightChild.Parent = node;
+            }
             temp.LeftChild = node;
             if (node.Parent != null)
             {
                 temp.Parent = node.Parent;
-                temp.Parent.LeftChild = temp;
+                if (temp.Parent.Data.CompareTo(temp.Data) == 1)
+                {
+                    temp.Parent.LeftChild = temp;
+                }
+                else
+                {
+                    temp.Parent.RightChild = temp;
+                }
             }
             else
             {
@@ -228,7 +250,7 @@ namespace AVL_Tree
                     return node;
                 }
 
-                if (comparisonResult.Equals(1))
+                if (comparisonResult.Equals(-1))
                 {
                     if (node.RightChild != null)
                     {
@@ -236,7 +258,7 @@ namespace AVL_Tree
                         continue;
                     }
                 }
-                else if (comparisonResult.Equals(-1))
+                else if (comparisonResult.Equals(1))
                 {
                     if (node.LeftChild != null)
                     {
