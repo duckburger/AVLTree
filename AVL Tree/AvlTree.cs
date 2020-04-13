@@ -4,20 +4,20 @@ namespace AVL_Tree
 {
     public class AvlTree<T> where T : IComparable
     {
-        private AvlTreeNode<T> _root;
+        public AvlTreeNode<T> Root { get; private set; }
 
         public void Add(T item)
         {
-            if (_root == null)
+            if (Root == null)
             {
-                _root = new AvlTreeNode<T>(item);
+                Root = new AvlTreeNode<T>(item);
                 return;
             }
 
-            var insertedNode = _root.InsertChild(item);
+            var insertedNode = Root.InsertChild(item);
             if (insertedNode != null)
             {
-                CheckAndFixBalanceForTree(insertedNode);
+                CheckAndFixBalanceForTree(insertedNode, true);
             }
         }
 
@@ -104,7 +104,7 @@ namespace AVL_Tree
 
         public AvlTreeNode<T> Find(T item)
         {
-            return FindInNode(_root.RightChild, item);
+            return FindInNode(Root.RightChild, item);
         }
 
         public void CheckAndFixBalanceForTree(AvlTreeNode<T> node, bool recurse = false)
@@ -116,8 +116,8 @@ namespace AVL_Tree
             {
                 // Node's subtree is left heavy
                 // Check if we need to do a right or left right rotation
-                var leftGrandChildHeight = node.LeftChild.LeftChild?.GetHeight() ?? 0;
-                var rightGrandChildHeight = node.RightChild.RightChild?.GetHeight() ?? 0;
+                var leftGrandChildHeight = node.LeftChild?.LeftChild?.GetHeight() ?? 0;
+                var rightGrandChildHeight = node.LeftChild?.RightChild?.GetHeight() ?? 0;
                 if (leftGrandChildHeight > rightGrandChildHeight)
                 {
                     // Doing a right rotation only
@@ -133,8 +133,8 @@ namespace AVL_Tree
             {
                 // Node's subtree is right heavy
                 // Check if we need to do a right or left right rotation
-                var rightGrandchildHeight = node.RightChild.RightChild?.GetHeight() ?? 0;
-                var leftGrandChildHeight = node.RightChild.LeftChild?.GetHeight() ?? 0;
+                var rightGrandchildHeight = node.RightChild?.RightChild?.GetHeight() ?? 0;
+                var leftGrandChildHeight = node.RightChild?.LeftChild?.GetHeight() ?? 0;
                 if (leftGrandChildHeight < rightGrandchildHeight)
                 {
                     // Doing a left rotation only
@@ -160,7 +160,7 @@ namespace AVL_Tree
 
             if (recurse)
             {
-                CheckAndFixBalanceForTree(node);
+                CheckAndFixBalanceForTree(node, true);
             }
         }
 
@@ -172,12 +172,12 @@ namespace AVL_Tree
             if (node.Parent != null)
             {
                 temp.Parent = node.Parent;
-                temp.Parent.LeftChild = temp;
+                temp.Parent.RightChild = temp;
             }
             else
             {
                 temp.Parent = null;
-                _root = temp;
+                Root = temp;
             }
             node.Parent = temp;
             return node;
@@ -191,12 +191,12 @@ namespace AVL_Tree
             if (node.Parent != null)
             {
                 temp.Parent = node.Parent;
-                temp.Parent.RightChild = temp;
+                temp.Parent.LeftChild = temp;
             }
             else
             {
                 temp.Parent = null;
-                _root = temp;
+                Root = temp;
             }
             node.Parent = temp;
             return node;

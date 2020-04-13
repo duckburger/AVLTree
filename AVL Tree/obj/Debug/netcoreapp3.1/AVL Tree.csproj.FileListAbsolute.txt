@@ -1,16 +1,9 @@
-C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.dll
-C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.pdb
-C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\bin\Debug\netcoreapp3.1\nunit.engine.dll
-C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\bin\Debug\netcoreapp3.1\nunit.engine.api.dll
 C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\bin\Debug\netcoreapp3.1\AVL Tree.deps.json
 C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\bin\Debug\netcoreapp3.1\AVL Tree.dll
 C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\bin\Debug\netcoreapp3.1\AVL Tree.pdb
-C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\bin\Debug\netcoreapp3.1\AVLTreeTests.dll
-C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\bin\Debug\netcoreapp3.1\AVLTreeTests.pdb
 C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\obj\Debug\netcoreapp3.1\AVL Tree.csprojAssemblyReference.cache
-C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\obj\Debug\netcoreapp3.1\AVL Tree.csproj.CoreCompileInputs.cache
 C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\obj\Debug\netcoreapp3.1\AVL Tree.AssemblyInfoInputs.cache
 C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\obj\Debug\netcoreapp3.1\AVL Tree.AssemblyInfo.cs
-C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\obj\Debug\netcoreapp3.1\AVL Tree.csproj.CopyComplete
 C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\obj\Debug\netcoreapp3.1\AVL Tree.dll
 C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\obj\Debug\netcoreapp3.1\AVL Tree.pdb
+C:\Users\kiril\Dropbox\Repos\AVL Tree\AVL Tree\obj\Debug\netcoreapp3.1\AVL Tree.csproj.CoreCompileInputs.cache

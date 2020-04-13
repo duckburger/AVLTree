@@ -5,8 +5,4 @@
     <RootNamespace>AVL_Tree</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AVLTreeTests\AVLTreeTests.csproj" />
-  </ItemGroup>
-
 </Project>
